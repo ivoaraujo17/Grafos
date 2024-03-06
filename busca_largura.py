@@ -45,7 +45,12 @@ class busca_em_largura:
             self.tempo += 1
             self.relogio_vertice[vertice_atual] = self.tempo
             self.__busca(vertice_atual)
-    
+            try:
+                vertice_atual = self.relogio_vertice.index(0)
+            except:
+                continue
+        self.__constroi_resultado()
+
     def __busca(self, vertice):
         fila = queue.Queue()
         fila.put(vertice)
@@ -81,10 +86,27 @@ class busca_em_largura:
                     elif self.nivel_vertice[vizinho] == self.nivel_vertice[vertice_atual] + 1:
                         self.cores[vertice_atual][vizinho] = self.VERDE
                         self.cores[vizinho][vertice_atual] = self.VERDE
-        print(self.pai_list)
-        print(self.cores)
-                                              
 
-grafo = graph('grafo.txt')
+    def __constroi_resultado(self):
+        nome_arquivo_resultado = self.graph.nome_arquivo + "bfs.gdf"
+
+        with open(nome_arquivo_resultado, "w") as arquivo:
+            arquivo.write("nodedef>name VARCHAR,label VARCHAR\n")
+
+            for i in range(len(self.graph.matriz_adjacencia)):
+                arquivo.write(f"{i},{i}\n")
+            
+            arquivo.write("edgedef>node1 VARCHAR,node2 VARCHAR,directed BOOLEAN,color VARCHAR\n")
+
+            for i in range(len(self.cores)):
+                for j in range(i, len(self.cores)):
+                    if self.cores[i][j] != None:
+                        arquivo.write(f"{i+1},{j+1},false,'{self.cores[i][j]}'\n")
+
+
+    
+
+grafo = graph('grafo_.txt')
 busca = busca_em_largura(grafo)
-busca.inicializa(5)
+
+busca.inicializa(1)

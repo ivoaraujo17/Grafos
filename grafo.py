@@ -4,6 +4,7 @@ class graph:
         self.matriz_adjacencia = None
         self.lista_adjacencia = None
         self.read_graph(graph_txt)
+        self.nome_arquivo = graph_txt
     
     def read_graph(self, graph):
         # leitura do arquivo txt
