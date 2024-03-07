@@ -88,13 +88,13 @@ class busca_em_largura:
                         self.cores[vizinho][vertice_atual] = self.VERDE
 
     def __constroi_resultado(self):
-        nome_arquivo_resultado = self.graph.nome_arquivo + "bfs.gdf"
+        nome_arquivo_resultado = self.graph.nome_arquivo + "_bfs.gdf"
 
         with open(nome_arquivo_resultado, "w") as arquivo:
             arquivo.write("nodedef>name VARCHAR,label VARCHAR\n")
 
             for i in range(len(self.graph.matriz_adjacencia)):
-                arquivo.write(f"{i},{i}\n")
+                arquivo.write(f"{i+1},{i+1}\n")
             
             arquivo.write("edgedef>node1 VARCHAR,node2 VARCHAR,directed BOOLEAN,color VARCHAR\n")
 
@@ -104,9 +104,6 @@ class busca_em_largura:
                         arquivo.write(f"{i+1},{j+1},false,'{self.cores[i][j]}'\n")
 
 
-    
-
-grafo = graph('grafo_.txt')
+grafo = graph("grafo.txt")
 busca = busca_em_largura(grafo)
-
-busca.inicializa(1)
+busca.inicializa(5)

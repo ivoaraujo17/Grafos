@@ -4,7 +4,7 @@ class graph:
         self.matriz_adjacencia = None
         self.lista_adjacencia = None
         self.read_graph(graph_txt)
-        self.nome_arquivo = graph_txt
+        self.nome_arquivo = str(graph_txt).split(".")[0]
     
     def read_graph(self, graph):
         # leitura do arquivo txt
@@ -15,7 +15,7 @@ class graph:
             arquivo = arquivo.readlines()
             num_vertices = int(arquivo[0]) 
             for linha in arquivo[1:]:
-                linha = linha.strip().split(',')
+                linha = linha.strip().split(' ')
                 linha = [int(i) for i in linha]
 
                 matriz_adjacencia.append(linha)
