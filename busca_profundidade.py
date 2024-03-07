@@ -69,7 +69,7 @@ class busca_em_profundidade:
         self.profundidade_saida[vertice_atual] = self.tempo
 
     def __constroi_resultado(self):
-        nome_arquivo_resultado = self.graph.nome_arquivo + "dfs.gdf"
+        nome_arquivo_resultado = self.graph.nome_arquivo + "_dfs.gdf"
 
         with open(nome_arquivo_resultado, "w") as arquivo:
             arquivo.write("nodedef>name VARCHAR,label VARCHAR\n")
