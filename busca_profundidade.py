@@ -43,6 +43,8 @@ class busca_em_profundidade:
             self.profundidade_entrada[vertice_atual] = self.tempo
             self.__busca(vertice_atual)
         
+        self.__constroi_resultado()
+        
     def __busca(self, vertice):
         vertice_atual = vertice
         for vizinho in self.graph.lista_adjacencia[vertice_atual]:
@@ -51,20 +53,36 @@ class busca_em_profundidade:
                 self.pai_list[vizinho] = vertice_atual
                 # pintando a aresta do pai para o filho
                 self.cores[vertice_atual][vizinho] = self.AZUL
+                self.cores[vizinho][vertice_atual] = self.AZUL
                 # incrementando o tempo
                 self.tempo += 1
                 self.profundidade_entrada[vizinho] = self.tempo
                 self.__busca(vizinho)
             else:
-                # Teste para saber se é uma aresta de retorno
+                # se o meu vizinho não é o pai do vertice atual e estiver aberto, é uma aresta de retorno.
                 if self.profundidade_saida[vizinho] == 0 and vizinho != self.pai_list[vertice_atual]:
+                    print(f"Aresta de retorno: {vertice_atual} -> {vizinho}")
                     self.cores[vertice_atual][vizinho] = self.VERMELHO
+                    self.cores[vizinho][vertice_atual] = self.VERMELHO
         
         self.tempo += 1
         self.profundidade_saida[vertice_atual] = self.tempo
-        print(self.pai_list)
-        #print(self.cores)
 
+    def __constroi_resultado(self):
+        nome_arquivo_resultado = self.graph.nome_arquivo + "dfs.gdf"
+
+        with open(nome_arquivo_resultado, "w") as arquivo:
+            arquivo.write("nodedef>name VARCHAR,label VARCHAR\n")
+
+            for i in range(len(self.graph.matriz_adjacencia)):
+                arquivo.write(f"{i+1},{i+1}\n")
+            
+            arquivo.write("edgedef>node1 VARCHAR,node2 VARCHAR,directed BOOLEAN,color VARCHAR\n")
+
+            for i in range(len(self.cores)):
+                for j in range(i, len(self.cores)):
+                    if self.cores[i][j] != None:
+                        arquivo.write(f"{i+1},{j+1},false,'{self.cores[i][j]}'\n")
 
 grafo = graph('grafo.txt')
 busca = busca_em_profundidade(grafo)
