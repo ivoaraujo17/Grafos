@@ -1,3 +1,4 @@
+from busca_largura import busca_em_largura
 class graph:
     def __init__(self, graph_txt):
         self.num_vertices = None
@@ -5,6 +6,10 @@ class graph:
         self.lista_adjacencia = None
         self.read_graph(graph_txt)
         self.nome_arquivo = str(graph_txt).split(".")[0]
+        self.distancia_media = None
+        self.raio = None
+        self.diametro = None
+        self.metricas()
     
     def read_graph(self, graph):
         # leitura do arquivo txt
@@ -41,4 +46,20 @@ class graph:
         for lista in self.lista_adjacencia:
             print(lista)
         print()
+
+        
+    def metricas(self):
+        distancia = 0
+        raio = self.num_vertices
+        diametro = 0
+        for i in range(self.num_vertices):
+            busca = busca_em_largura(self)
+            busca.inicializa(i+1)
+            if busca.excentricidade < raio:
+                self.raio = busca.excentricidade
+            if busca.excentricidade > diametro:
+                self.diametro = busca.excentricidade
+            for j in range(i+1, self.num_vertices-1):
+                distancia += busca.nivel_vertice[j]
+        self.distancia_media = distancia/self.num_vertices
     

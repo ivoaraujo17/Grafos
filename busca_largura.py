@@ -1,4 +1,3 @@
-from grafo import graph
 import queue
 
 class busca_em_largura:
@@ -7,7 +6,7 @@ class busca_em_largura:
     VERDE = '0,255,0'
     AMARELO = '255,255,0'
 
-    def __init__(self, graph:graph) -> None:
+    def __init__(self, graph) -> None:
         self.graph = graph
         self.cores = None
         self.pai_list = None
@@ -15,6 +14,7 @@ class busca_em_largura:
         self.nivel_vertice = None
         self.__init_atributos()
         self.tempo = 0
+        self.excentricidade = None
         
     def __init_atributos(self):
         matriz = []
@@ -50,6 +50,8 @@ class busca_em_largura:
             except:
                 continue
         self.__constroi_resultado()
+        self.excentricidade = max(self.nivel_vertice)   
+        
 
     def __busca(self, vertice):
         fila = queue.Queue()
@@ -103,7 +105,3 @@ class busca_em_largura:
                     if self.cores[i][j] != None:
                         arquivo.write(f"{i+1},{j+1},false,'{self.cores[i][j]}'\n")
 
-
-grafo = graph("grafo.txt")
-busca = busca_em_largura(grafo)
-busca.inicializa(5)
