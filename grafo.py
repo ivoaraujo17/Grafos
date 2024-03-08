@@ -50,16 +50,16 @@ class graph:
         
     def metricas(self):
         distancia = 0
-        raio = self.num_vertices
-        diametro = 0
+        self.raio = self.num_vertices
+        self.diametro = 0
         for i in range(self.num_vertices):
             busca = busca_em_largura(self)
             busca.inicializa(i+1)
-            if busca.excentricidade < raio:
+            if busca.excentricidade < self.raio:
                 self.raio = busca.excentricidade
-            if busca.excentricidade > diametro:
-                self.diametro = busca.excentricidade
+            if busca.excentricidade > self.diametro:
+                self.diametro = busca.excentricidade    
             for j in range(i+1, self.num_vertices-1):
                 distancia += busca.nivel_vertice[j]
-        self.distancia_media = distancia/self.num_vertices
+        self.distancia_media = distancia / self.num_vertices
     
