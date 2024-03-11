@@ -61,7 +61,6 @@ class busca_em_profundidade:
             else:
                 # se o meu vizinho não é o pai do vertice atual e estiver aberto, é uma aresta de retorno.
                 if self.profundidade_saida[vizinho] == 0 and vizinho != self.pai_list[vertice_atual]:
-                    print(f"Aresta de retorno: {vertice_atual} -> {vizinho}")
                     self.cores[vertice_atual][vizinho] = self.VERMELHO
                     self.cores[vizinho][vertice_atual] = self.VERMELHO
         

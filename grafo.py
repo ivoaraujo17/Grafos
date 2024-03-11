@@ -60,7 +60,7 @@ class graph:
                 self.raio = busca.excentricidade
             if busca.excentricidade > self.diametro:
                 self.diametro = busca.excentricidade    
-            for j in range(i+1, self.num_vertices-1):
+            for j in range(i+1, self.num_vertices):
                 distancia += busca.nivel_vertice[j]
                 pares += 1
         self.distancia_media = distancia / pares
