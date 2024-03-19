@@ -42,6 +42,10 @@ class busca_em_profundidade:
             self.tempo += 1
             self.profundidade_entrada[vertice_atual] = self.tempo
             self.__busca(vertice_atual)
+            try:
+                vertice_atual = self.profundidade_entrada.index(0)
+            except:
+                continue
         
         self.__constroi_resultado()
         
